@@ -1,0 +1,93 @@
+doctype html
+html
+  head
+    title SPK Properti | Metode SAW
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css")
+    style.
+      body { background-color: #f4f7f6; }
+      .card { border: none; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 20px; }
+      .table-input { min-width: 80px; }
+      .rank-1 { background-color: #d1e7dd !important; font-weight: bold; }
+  body
+    .container.py-5
+      header.text-center.mb-5
+        h1.display-5.fw-bold Sistem Pendukung Keputusan Properti
+        p.text-muted Implementasi Metode Simple Additive Weighting (SAW)
+
+      .row
+        // 1. Input Kriteria
+        .col-lg-6
+          .card
+            .card-header.bg-primary.text-white.d-flex.justify-content-between.align-items-center
+              h5.mb-0 1. Kriteria & Bobot
+              button#addKriteria.btn.btn-light.btn-sm + Tambah
+            .card-body
+              table.table#tableKriteria
+                thead
+                  tr
+                    th Nama Kriteria
+                    th Sifat
+                    th Bobot
+                    th.text-end Aksi
+                tbody
+
+        // 2. Input Alternatif
+        .col-lg-6
+          .card
+            .card-header.bg-success.text-white.d-flex.justify-content-between.align-items-center
+              h5.mb-0 2. Alternatif (Properti)
+              button#addAlternatif.btn.btn-light.btn-sm + Tambah
+            .card-body
+              table.table#tableAlternatif
+                thead
+                  tr
+                    th Nama Properti
+                    th.text-end Aksi
+                tbody
+
+      // 3. Matriks Keputusan
+      .row.mt-4
+        .col-12
+          .card
+            .card-header.bg-dark.text-white
+              h5.mb-0 3. Matriks Keputusan (Input Nilai)
+            .card-body
+              .table-responsive
+                table.table.table-bordered#tableMatrix
+                  thead.table-light
+                    tr
+                      th Alternatif / Kriteria
+                  tbody
+
+      // 4. Matriks Normalisasi (Indentasi diperbaiki)
+      .row.mt-4
+        .col-12
+          .card
+            .card-header.bg-secondary.text-white
+              h5.mb-0 4. Matriks Normalisasi
+            .card-body
+              .table-responsive
+                table.table.table-bordered#tableNormalisasi
+                  thead.table-light
+                    tr
+                      th Alternatif / Kriteria
+                  tbody
+              p.text-muted.small.mt-2 *Tabel ini terhitung otomatis berdasarkan tipe kriteria (Benefit/Cost).
+
+      // 5. Hasil Perangkingan
+      .row.mt-4#hasilSection(style="display:none")
+        .col-12
+          .card
+            .card-header.bg-info.text-white
+              h5.mb-0 5. Hasil Perangkingan
+            .card-body
+              table.table.table-hover#tableHasil
+                thead
+                  tr
+                    th Peringkat
+                    th Nama Alternatif
+                    th Nilai Akhir (V)
+                tbody
+
+    // Pastikan path script benar
+    script(src='/js/script.js')

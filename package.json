@@ -4,13 +4,14 @@
   "description": "penerapan metode SAW untuk pencarian properti",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon app.js"
   },
   "author": "ayu-dash",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "express-static": "^1.2.6",
     "nodemon": "^3.1.14",
     "pug": "^3.0.4"
   }
