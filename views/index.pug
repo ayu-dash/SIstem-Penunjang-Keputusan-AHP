@@ -1,93 +1,128 @@
 doctype html
-html
+html(lang="id")
   head
-    title SPK Properti | Metode SAW
-    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css")
-    style.
-      body { background-color: #f4f7f6; }
-      .card { border: none; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 20px; }
-      .table-input { min-width: 80px; }
-      .rank-1 { background-color: #d1e7dd !important; font-weight: bold; }
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(name="description", content="Sistem Pendukung Keputusan Properti menggunakan metode Simple Additive Weighting (SAW)")
+    title= title || 'SPK Properti | Metode SAW'
+    link(rel="stylesheet", href="/css/style.css")
   body
-    .container.py-5
-      header.text-center.mb-5
-        h1.display-5.fw-bold Sistem Pendukung Keputusan Properti
-        p.text-muted Implementasi Metode Simple Additive Weighting (SAW)
+    .app-container
 
-      .row
-        // 1. Input Kriteria
-        .col-lg-6
-          .card
-            .card-header.bg-primary.text-white.d-flex.justify-content-between.align-items-center
-              h5.mb-0 1. Kriteria & Bobot
-              button#addKriteria.btn.btn-light.btn-sm + Tambah
-            .card-body
-              table.table#tableKriteria
+      header.app-header
+        h1.app-header__title Sistem Pendukung Keputusan Properti Menggunakan Metode SAW
+        
+
+      .grid-2col
+
+        .glass-card
+          .card-head
+            .card-head__left
+              .step-badge.step-badge--teal 1
+              div
+                .card-head__title Kriteria &amp; Bobot
+                .card-head__subtitle Tambahkan kriteria penilaian
+            .btn.btn--add#addKriteria
+              span + Tambah
+          .card-body
+            table.data-table#tableKriteria
+              thead
+                tr
+                  th Nama Kriteria
+                  th Sifat
+                  th Bobot (%)
+                  th.text-end Aksi
+              tbody
+            .bobot-indicator#bobotIndicator
+              span Total Bobot:&nbsp;
+              span.bobot-indicator__value#bobotValue 0%
+
+        .glass-card
+          .card-head
+            .card-head__left
+              .step-badge.step-badge--green 2
+              div
+                .card-head__title Alternatif (Properti)
+                .card-head__subtitle Daftar properti yang akan dinilai
+            .btn.btn--add#addAlternatif
+              span + Tambah
+          .card-body
+            table.data-table#tableAlternatif
+              thead
+                tr
+                  th Nama Properti
+                  th.text-end Aksi
+              tbody
+
+      .grid-full
+        .glass-card
+          .card-head
+            .card-head__left
+              .step-badge.step-badge--dark 3
+              div
+                .card-head__title Matriks Keputusan
+                .card-head__subtitle Masukkan nilai setiap alternatif terhadap kriteria
+          .card-body
+            .table-wrap
+              table.data-table#tableMatrix
                 thead
                   tr
-                    th Nama Kriteria
-                    th Sifat
-                    th Bobot
-                    th.text-end Aksi
+                    th Alternatif / Kriteria
                 tbody
 
-        // 2. Input Alternatif
-        .col-lg-6
-          .card
-            .card-header.bg-success.text-white.d-flex.justify-content-between.align-items-center
-              h5.mb-0 2. Alternatif (Properti)
-              button#addAlternatif.btn.btn-light.btn-sm + Tambah
-            .card-body
-              table.table#tableAlternatif
+      .grid-full
+        .glass-card
+          .card-head
+            .card-head__left
+              .step-badge.step-badge--purple 4
+              div
+                .card-head__title Matriks Normalisasi (R)
+          .card-body
+            .table-wrap
+              table.data-table#tableNormalisasi
                 thead
                   tr
-                    th Nama Properti
-                    th.text-end Aksi
+                    th Alternatif / Kriteria
                 tbody
 
-      // 3. Matriks Keputusan
-      .row.mt-4
-        .col-12
-          .card
-            .card-header.bg-dark.text-white
-              h5.mb-0 3. Matriks Keputusan (Input Nilai)
+      .grid-full
+        .glass-card
+          .card-head
+            .card-head__left
+              .step-badge.step-badge--amber 5
+              div
+                .card-head__title Matriks Perangkingan (V)
+          .card-body
+            .table-wrap
+              table.data-table#tablePerangkingan
+                thead
+                  tr
+                    th Alternatif / Kriteria
+                    th.text-center Total (V)
+                tbody
+
+      .action-section
+        button.btn.btn--primary#btnHitung(type="button") Hitung SAW
+
+      #hasilSection.result-section
+        .grid-full
+          .glass-card.glow-pulse
+            .card-head
+              .card-head__left
+                .step-badge.step-badge--teal ★
+                div
+                  .card-head__title Hasil Perangkingan
             .card-body
-              .table-responsive
-                table.table.table-bordered#tableMatrix
-                  thead.table-light
+              .table-wrap
+                table.data-table#tableHasil
+                  thead
                     tr
-                      th Alternatif / Kriteria
+                      th.text-center Rank
+                      th Nama Properti
+                      th.text-center Nilai V
                   tbody
 
-      // 4. Matriks Normalisasi (Indentasi diperbaiki)
-      .row.mt-4
-        .col-12
-          .card
-            .card-header.bg-secondary.text-white
-              h5.mb-0 4. Matriks Normalisasi
-            .card-body
-              .table-responsive
-                table.table.table-bordered#tableNormalisasi
-                  thead.table-light
-                    tr
-                      th Alternatif / Kriteria
-                  tbody
-              p.text-muted.small.mt-2 *Tabel ini terhitung otomatis berdasarkan tipe kriteria (Benefit/Cost).
+      footer.app-footer
+        p SPK Properti — Metode SAW &nbsp;·&nbsp; #{new Date().getFullYear()}
 
-      // 5. Hasil Perangkingan
-      .row.mt-4#hasilSection(style="display:none")
-        .col-12
-          .card
-            .card-header.bg-info.text-white
-              h5.mb-0 5. Hasil Perangkingan
-            .card-body
-              table.table.table-hover#tableHasil
-                thead
-                  tr
-                    th Peringkat
-                    th Nama Alternatif
-                    th Nilai Akhir (V)
-                tbody
-
-    // Pastikan path script benar
-    script(src='/js/script.js')
+    script(src="/js/script.js")
