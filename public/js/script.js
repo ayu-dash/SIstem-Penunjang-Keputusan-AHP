@@ -118,7 +118,7 @@ function renderPerbKriteria() {
     $('#crKriteria').textContent=n>0?`${(r.cr*100).toFixed(2)}% (${r.cr.toFixed(4)})`:'-';
     const st=$('#statusKriteria');
     st.className='badge '+(r.consistent?'badge--success':'badge--danger');
-    st.textContent=n<=2?'Konsisten (n≤2)':r.consistent?'Konsisten ✅':'Tidak Konsisten ❌';
+    st.textContent=n<=2?'Konsisten (n≤2)':r.consistent?'Konsisten':'Tidak Konsisten';
     // Bobot table
     const btb=$('#tableBobotKriteria tbody');
     if(btb) btb.innerHTML=state.kriteria.map((k,i)=>`<tr><td>${esc(k.nama||'?')}</td><td class="text-center text-mono">${(r.weights[i]||0).toFixed(4)} (${((r.weights[i]||0)*100).toFixed(2)}%)</td></tr>`).join('');
@@ -156,7 +156,7 @@ function renderSubkriteriaTabs() {
         html+=`<div class="ahp-meta-container"><div><span class="meta-label">λ max:</span> <strong>${r.lambdaMax.toFixed(4)}</strong></div>`;
         html+=`<div><span class="meta-label">CI:</span> <strong>${r.ci.toFixed(4)}</strong></div>`;
         html+=`<div><span class="meta-label">CR:</span> <strong>${(r.cr*100).toFixed(2)}% (${r.cr.toFixed(4)})</strong></div>`;
-        html+=`<div><span class="meta-label">Status:</span> <span class="badge ${r.consistent?'badge--success':'badge--danger'}">${r.consistent?'Konsisten ✅':'Tidak Konsisten ❌'}</span></div></div>`;
+        html+=`<div><span class="meta-label">Status:</span> <span class="badge ${r.consistent?'badge--success':'badge--danger'}">${r.consistent?'Konsisten':'Tidak Konsisten'}</span></div></div>`;
         // Priority table
         html+=`<table class="data-table" style="margin-top:.8rem"><thead><tr><th>Skala (Sub)</th><th class="text-center">Prioritas</th></tr></thead><tbody>`;
         state.subKriteria.forEach((s,i) => html+=`<tr><td>${esc(s.nama||'?')}</td><td class="text-center text-mono">${(r.weights[i]||0).toFixed(4)}</td></tr>`);
@@ -272,7 +272,7 @@ function hitungAHP(isAuto = false) {
             });
             h+=`<tr style="font-weight:700;border-top:2px solid var(--border)"><td colspan="4">TOTAL</td><td class="text-center text-mono" style="color:var(--accent-teal)">${total.toFixed(6)}</td></tr>`;
             const layak=total>=threshold;
-            h+=`<tr><td colspan="4">KEPUTUSAN (threshold ≥ ${threshold})</td><td class="text-center"><span class="badge ${layak?'badge--success':'badge--danger'}">${layak?'LAYAK ✅':'TIDAK LAYAK ❌'}</span></td></tr>`;
+            h+=`<tr><td colspan="4">KEPUTUSAN (threshold ≥ ${threshold})</td><td class="text-center"><span class="badge ${layak?'badge--success':'badge--danger'}">${layak?'LAYAK':'TIDAK LAYAK'}</span></td></tr>`;
             h+=`</tbody></table>`;
         });
         detail.innerHTML=h;
@@ -294,7 +294,7 @@ function hitungAHP(isAuto = false) {
         <td class="text-center"><span class="rank-badge">${i+1}</span></td>
         <td><strong>${esc(h.nama)}</strong></td>
         <td class="text-center text-mono">${h.total.toFixed(4)}</td>
-        <td class="text-center"><span class="badge ${h.layak?'badge--success':'badge--danger'}">${h.layak?'LAYAK ✅':'TIDAK LAYAK ❌'}</span></td></tr>`).join('');
+        <td class="text-center"><span class="badge ${h.layak?'badge--success':'badge--danger'}">${h.layak?'LAYAK':'TIDAK LAYAK'}</span></td></tr>`).join('');
 
     const statusAHP=$('#statusAHP');
     if(statusAHP){ statusAHP.className='badge badge--success'; statusAHP.textContent='Perhitungan Selesai'; }

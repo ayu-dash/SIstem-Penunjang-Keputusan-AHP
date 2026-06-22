@@ -18,11 +18,11 @@
     --accent-red: #f43f5e;
     --accent-amber: #f59e0b;
 
-    --gradient-main: #00d4aa;
-    --gradient-success: #10b981;
-    --gradient-danger: #f43f5e;
-    --gradient-purple: #a855f7;
-    --gradient-dark: #1e293b;
+    --color-main: #00d4aa;
+    --color-success: #10b981;
+    --color-danger: #f43f5e;
+    --color-purple: #a855f7;
+    --color-dark: #1e293b;
 
     --glass-blur: 20px;
     --radius-sm: 8px;
@@ -103,10 +103,7 @@ body {
     font-weight: 800;
     letter-spacing: -0.03em;
     margin-bottom: 12px;
-    background: var(--gradient-main);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--accent-teal);
 }
 
 .app-header__subtitle {
@@ -210,19 +207,19 @@ body {
 }
 
 .step-badge--teal {
-    background: var(--gradient-main);
+    background: var(--color-main);
 }
 
 .step-badge--green {
-    background: var(--gradient-success);
+    background: var(--color-success);
 }
 
 .step-badge--dark {
-    background: var(--gradient-dark);
+    background: var(--color-dark);
 }
 
 .step-badge--purple {
-    background: var(--gradient-purple);
+    background: var(--color-purple);
 }
 
 .step-badge--amber {
@@ -413,7 +410,7 @@ body {
 }
 
 .btn--primary {
-    background: var(--gradient-main);
+    background: var(--color-main);
     padding: 14px 36px;
     font-size: 0.95rem;
     border-radius: var(--radius-md);
@@ -499,7 +496,7 @@ body {
 }
 
 .rank-1 .rank-badge {
-    background: var(--gradient-main);
+    background: var(--color-main);
     color: #fff;
     box-shadow: 0 0 16px rgba(0, 212, 170, 0.3);
 }

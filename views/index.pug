@@ -10,9 +10,7 @@ html(lang="id")
     .app-container
 
       header.app-header
-        .app-header__badge Metode AHP
         h1.app-header__title Sistem Pendukung Keputusan (AHP)
-        p.app-header__desc Sistem Pengambilan Keputusan Multi-Kriteria Menggunakan Metode Analytic Hierarchy Process Murni
 
       .grid-3col
 
@@ -22,7 +20,6 @@ html(lang="id")
               .step-badge.step-badge--teal 1
               div
                 .card-head__title Daftar Kriteria
-                .card-head__subtitle Kelola kriteria penilaian
             .btn.btn--add#addKriteria
               span + Tambah
           .card-body
@@ -39,7 +36,6 @@ html(lang="id")
               .step-badge.step-badge--green 2
               div
                 .card-head__title Daftar Alternatif
-                .card-head__subtitle Kelola alternatif keputusan
             .btn.btn--add#addAlternatif
               span + Tambah
           .card-body
@@ -56,7 +52,6 @@ html(lang="id")
               .step-badge.step-badge--purple 3
               div
                 .card-head__title Skala Penilaian
-                .card-head__subtitle Kelola sub-kriteria (rating)
             .btn.btn--add#addSubKriteria
               span + Tambah
           .card-body
@@ -74,7 +69,6 @@ html(lang="id")
               .step-badge.step-badge--purple 4
               div
                 .card-head__title Perbandingan Berpasangan Kriteria
-                .card-head__subtitle Bandingkan tingkat kepentingan antar kriteria (Skala Saaty 1–9)
           .card-body
             .table-wrap
               table.data-table#tablePerbandinganKriteria
@@ -111,7 +105,6 @@ html(lang="id")
               .step-badge.step-badge--amber 5
               div
                 .card-head__title Perbandingan Berpasangan Sub-kriteria
-                .card-head__subtitle Untuk setiap kriteria, bandingkan tingkat kepentingan antar skala penilaian (sub-kriteria)
           .card-body
             .tabs#tabsSubkriteria
             .tab-content#tabContentSubkriteria
@@ -123,7 +116,6 @@ html(lang="id")
               .step-badge.step-badge--dark 6
               div
                 .card-head__title Penilaian Alternatif
-                .card-head__subtitle Pilih skala penilaian untuk setiap alternatif per kriteria
           .card-body
             .table-wrap
               table.data-table#tablePenilaian
@@ -147,7 +139,6 @@ html(lang="id")
                 .step-badge.step-badge--purple 7
                 div
                   .card-head__title Matriks Hasil
-                  .card-head__subtitle Prioritas Sub-kriteria × Bobot Kriteria
             .card-body
               .table-wrap
                 table.data-table#tableMatriksHasil
@@ -185,7 +176,5 @@ html(lang="id")
                       th.text-center Keputusan
                   tbody
 
-      footer.app-footer
-        p SPK Metode AHP — Metode AHP Murni &nbsp;·&nbsp; #{new Date().getFullYear()}
 
     script(src="/js/script.js")
