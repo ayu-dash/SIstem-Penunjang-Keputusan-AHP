@@ -3,25 +3,26 @@ html(lang="id")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    meta(name="description", content="Sistem Pendukung Keputusan Properti menggunakan metode Simple Additive Weighting (SAW)")
-    title= title || 'SPK Properti | Metode SAW'
+    meta(name="description", content="Sistem Pendukung Keputusan menggunakan metode Analytic Hierarchy Process (AHP) murni")
+    title= title || 'SPK | Metode AHP'
     link(rel="stylesheet", href="/css/style.css")
   body
     .app-container
 
       header.app-header
-        h1.app-header__title Sistem Pendukung Keputusan Properti Menggunakan Metode SAW
-        
+        .app-header__badge Metode AHP
+        h1.app-header__title Sistem Pendukung Keputusan (AHP)
+        p.app-header__desc Sistem Pengambilan Keputusan Multi-Kriteria Menggunakan Metode Analytic Hierarchy Process Murni
 
-      .grid-2col
+      .grid-3col
 
         .glass-card
           .card-head
             .card-head__left
               .step-badge.step-badge--teal 1
               div
-                .card-head__title Kriteria &amp; Bobot
-                .card-head__subtitle Tambahkan kriteria penilaian
+                .card-head__title Daftar Kriteria
+                .card-head__subtitle Kelola kriteria penilaian
             .btn.btn--add#addKriteria
               span + Tambah
           .card-body
@@ -29,46 +30,42 @@ html(lang="id")
               thead
                 tr
                   th Nama Kriteria
-                  th Sifat
-                  th Bobot (%)
                   th.text-end Aksi
               tbody
-            .bobot-indicator#bobotIndicator
-              span Total Bobot:&nbsp;
-              span.bobot-indicator__value#bobotValue 0%
 
         .glass-card
           .card-head
             .card-head__left
               .step-badge.step-badge--green 2
               div
-                .card-head__title Alternatif (Properti)
-                .card-head__subtitle Daftar properti yang akan dinilai
+                .card-head__title Daftar Alternatif
+                .card-head__subtitle Kelola alternatif keputusan
             .btn.btn--add#addAlternatif
               span + Tambah
           .card-body
             table.data-table#tableAlternatif
               thead
                 tr
-                  th Nama Properti
+                  th Nama Alternatif
                   th.text-end Aksi
               tbody
 
-      .grid-full
         .glass-card
           .card-head
             .card-head__left
-              .step-badge.step-badge--dark 3
+              .step-badge.step-badge--purple 3
               div
-                .card-head__title Matriks Keputusan
-                .card-head__subtitle Masukkan nilai setiap alternatif terhadap kriteria
+                .card-head__title Skala Penilaian
+                .card-head__subtitle Kelola sub-kriteria (rating)
+            .btn.btn--add#addSubKriteria
+              span + Tambah
           .card-body
-            .table-wrap
-              table.data-table#tableMatrix
-                thead
-                  tr
-                    th Alternatif / Kriteria
-                tbody
+            table.data-table#tableSubKriteria
+              thead
+                tr
+                  th Nama Skala (Sub)
+                  th.text-end Aksi
+              tbody
 
       .grid-full
         .glass-card
@@ -76,13 +73,35 @@ html(lang="id")
             .card-head__left
               .step-badge.step-badge--purple 4
               div
-                .card-head__title Matriks Normalisasi (R)
+                .card-head__title Perbandingan Berpasangan Kriteria
+                .card-head__subtitle Bandingkan tingkat kepentingan antar kriteria (Skala Saaty 1–9)
           .card-body
             .table-wrap
-              table.data-table#tableNormalisasi
+              table.data-table#tablePerbandinganKriteria
                 thead
                   tr
-                    th Alternatif / Kriteria
+                    th Kriteria
+                tbody
+            .ahp-meta-container
+              div
+                span.meta-label λ max:&nbsp;
+                strong#lambdaMaxKriteria -
+              div
+                span.meta-label CI:&nbsp;
+                strong#ciKriteria -
+              div
+                span.meta-label CR:&nbsp;
+                strong#crKriteria -
+              div
+                span.meta-label Status:&nbsp;
+                span.badge#statusKriteria -
+            .table-wrap(style="margin-top:1rem")
+              h4.sub-heading Bobot Prioritas Kriteria
+              table.data-table#tableBobotKriteria
+                thead
+                  tr
+                    th Kriteria
+                    th.text-center Bobot (Prioritas)
                 tbody
 
       .grid-full
@@ -91,38 +110,82 @@ html(lang="id")
             .card-head__left
               .step-badge.step-badge--amber 5
               div
-                .card-head__title Matriks Perangkingan (V)
+                .card-head__title Perbandingan Berpasangan Sub-kriteria
+                .card-head__subtitle Untuk setiap kriteria, bandingkan tingkat kepentingan antar skala penilaian (sub-kriteria)
+          .card-body
+            .tabs#tabsSubkriteria
+            .tab-content#tabContentSubkriteria
+
+      .grid-full
+        .glass-card
+          .card-head
+            .card-head__left
+              .step-badge.step-badge--dark 6
+              div
+                .card-head__title Penilaian Alternatif
+                .card-head__subtitle Pilih skala penilaian untuk setiap alternatif per kriteria
           .card-body
             .table-wrap
-              table.data-table#tablePerangkingan
+              table.data-table#tablePenilaian
                 thead
                   tr
                     th Alternatif / Kriteria
-                    th.text-center Total (V)
                 tbody
 
       .action-section
-        button.btn.btn--primary#btnHitung(type="button") Hitung SAW
+        .threshold-input
+          label(for="thresholdInput") Threshold Kelayakan:&nbsp;
+          input#thresholdInput.form-input.input-sm(type="number" value="0.65" min="0" max="1" step="0.01" style="width:80px; display:inline-block")
+        button.btn.btn--primary#btnHitung(type="button") Hitung AHP
 
       #hasilSection.result-section
+
+        .grid-full
+          .glass-card
+            .card-head
+              .card-head__left
+                .step-badge.step-badge--purple 7
+                div
+                  .card-head__title Matriks Hasil
+                  .card-head__subtitle Prioritas Sub-kriteria × Bobot Kriteria
+            .card-body
+              .table-wrap
+                table.data-table#tableMatriksHasil
+                  thead
+                    tr
+                      th Sub-kriteria
+                  tbody
+
+        .grid-full
+          .glass-card
+            .card-head
+              .card-head__left
+                .step-badge.step-badge--teal 8
+                div
+                  .card-head__title Detail Perhitungan
+            .card-body#detailPerhitungan
+
         .grid-full
           .glass-card.glow-pulse
             .card-head
               .card-head__left
-                .step-badge.step-badge--teal ★
+                .step-badge.step-badge--green 9
                 div
-                  .card-head__title Hasil Perangkingan
+                  .card-head__title Hasil Perangkingan AHP
+              div(style="padding-right: 8px;")
+                span.badge.badge--success#statusAHP -
             .card-body
               .table-wrap
                 table.data-table#tableHasil
                   thead
                     tr
                       th.text-center Rank
-                      th Nama Properti
-                      th.text-center Nilai V
+                      th Nama Alternatif
+                      th.text-center Nilai Akhir
+                      th.text-center Keputusan
                   tbody
 
       footer.app-footer
-        p SPK Properti — Metode SAW &nbsp;·&nbsp; #{new Date().getFullYear()}
+        p SPK Metode AHP — Metode AHP Murni &nbsp;·&nbsp; #{new Date().getFullYear()}
 
     script(src="/js/script.js")

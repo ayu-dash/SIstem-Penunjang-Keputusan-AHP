@@ -1,7 +1,7 @@
 {
   "name": "spk-properti",
   "version": "1.0.0",
-  "description": "Penerapan metode SAW untuk pencarian properti",
+  "description": "Penerapan metode AHP untuk pencarian properti",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
